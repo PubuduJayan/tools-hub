@@ -1,63 +1,124 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tools Hub – Fancy Text • Word Counter • QR Code</title>
-  <meta name="description" content="Free online tools: Fancy Text Generator, Word & Character Counter, QR Code Creator – all in one page." />
+  <meta name="description" content="Free online tools: Fancy Text Generator, Word & Character Counter, QR Code Creator – all in one fast page." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Favicon (NO TEXT) -->
+  <link rel="icon" type="image/svg+xml" href='data:image/svg+xml;utf8,
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <defs>
+      <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+        <stop stop-color="%235b8cff"/><stop offset="1" stop-color="%232dd4bf"/>
+      </linearGradient>
+    </defs>
+    <rect width="64" height="64" rx="14" ry="14" fill="url(%23g)"/>
+    <!-- spark only, no letters -->
+    <path d="M44 20l-5 3 5 3-3 5 6-1 3 6 3-6 6 1-3-5 5-3-5-3 3-5-6 1-3-6-3 6-6-1z"
+          fill="%230b1220" opacity=".35"/>
+  </svg>'/>
+
   <style>
-    :root {
-      --bg: #0b0f16; --card:#101726; --muted:#a9b3c7; --text:#e6edf7; --acc:#7c9cff; --acc2:#00d7c0; --border:#1b2538;
+    :root{
+      --bg:#f6f8ff; --surface:#ffffff; --text:#0b1220; --muted:#55607a; --border:#e5e8f3;
+      --acc1:#5b8cff; --acc2:#2dd4bf; --ring: 0 0 0 3px color-mix(in oklab, var(--acc1) 25%, transparent);
+      --subtle: linear-gradient(180deg, #fff, #fbfdff);
+      --shadow: 0 8px 24px rgba(9, 16, 35, .08);
+      --dashed:#e9edfb; --mono:#0b1220;
     }
+    html[data-theme="dark"]{
+      --bg:#0c1018; --surface:#0f1626; --text:#e6edf7; --muted:#9aa6c1; --border:#1b2540;
+      --acc1:#7c9cff; --acc2:#00d7c0; --ring: 0 0 0 3px color-mix(in oklab, var(--acc1) 30%, transparent);
+      --subtle: linear-gradient(180deg, #0f1626, #0b1324);
+      --shadow: 0 10px 24px rgba(0,0,0,.35);
+      --dashed:#162038; --mono:#e6edf7;
+    }
+
     *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);}
-    .container{max-width:1100px;margin:0 auto;padding:24px}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text)}
+    .container{max-width:1200px;margin:0 auto;padding:22px}
+
     header{display:flex;gap:16px;align-items:center;justify-content:space-between;margin-bottom:16px}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--acc),var(--acc2));display:grid;place-items:center;color:#0b0f16;font-weight:800}
-    .title{font-size:20px;font-weight:700}
+    .brand{display:flex;align-items:center;gap:12px;cursor:pointer} /* clickable brand */
+    .logo{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;box-shadow:var(--shadow);position:relative;overflow:hidden}
+    .logo svg{width:100%;height:100%}
+    .logo::after{content:"";position:absolute;inset:0;background:conic-gradient(from 200deg,var(--acc1),var(--acc2),var(--acc1));mix-blend-mode:soft-light;opacity:.6;animation:spin 6s linear infinite}
+    @keyframes spin{to{transform:rotate(1turn)}}
+    .title{font-size:20px;font-weight:800}
     .subtitle{color:var(--muted);font-size:13px}
     nav{display:flex;gap:8px;flex-wrap:wrap}
-    .tab{background:transparent;border:1px solid var(--border);color:var(--muted);padding:10px 14px;border-radius:12px;cursor:pointer;transition:.2s}
-    .tab.active{color:var(--text);border-color:var(--acc);box-shadow:0 0 0 2px color-mix(in oklab, var(--acc) 20%, transparent)}
+    .tab{background:var(--surface);border:1px solid var(--border);color:var(--muted);padding:10px 14px;border-radius:12px;cursor:pointer;transition:.18s;box-shadow:var(--shadow)}
+    .tab:hover{transform:translateY(-1px)}
+    .tab.active{color:var(--text);border-color:color-mix(in oklab,var(--acc1) 50%, var(--border)); outline:var(--ring)}
+
     .grid{display:grid;grid-template-columns:1fr;gap:16px}
-    @media(min-width:900px){.grid{grid-template-columns:2fr 1fr}}
-    .card{background:linear-gradient(180deg, color-mix(in oklab,var(--card),#000 10%), var(--card));border:1px solid var(--border);border-radius:16px;padding:16px}
+    @media(min-width:1024px){.grid{grid-template-columns:1.4fr 1fr}}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:16px;box-shadow:var(--shadow);background-image:var(--subtle)}
     .card h2{margin:0 0 10px;font-size:18px}
     label{font-size:13px;color:var(--muted);display:block;margin-bottom:8px}
-    textarea, input[type="text"], select{width:100%;padding:12px 14px;border-radius:12px;background:#0c1321;color:var(--text);border:1px solid var(--border);outline:none}
+    textarea,input[type="text"],select{width:100%;padding:12px 14px;border-radius:12px;background:color-mix(in oklab,var(--surface) 92%, #eef3ff 8%);color:var(--text);border:1px solid var(--border);outline:none}
     textarea{min-height:150px;resize:vertical}
     .row{display:flex;gap:8px;flex-wrap:wrap}
-    .btn{background:linear-gradient(135deg,var(--acc),var(--acc2));border:none;color:#051019;padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer}
+    .btn{background:linear-gradient(135deg,var(--acc1),var(--acc2));border:none;color:#051019;padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer}
     .btn.ghost{background:transparent;border:1px solid var(--border);color:var(--muted)}
     .muted{color:var(--muted)}
-    .output{padding:12px;border-radius:12px;background:#0c1321;border:1px dashed var(--border);font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", "Courier New", monospace;white-space:pre-wrap;word-wrap:break-word}
-    .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;background:#0d1525;border:1px solid var(--border);font-size:12px}
-    .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-    @media(min-width:600px){.stats{grid-template-columns:repeat(4,1fr)}}
-    .stat{background:#0d1525;border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center}
-    .qr-wrap{display:grid;place-items:center;min-height:260px;background:#0c1321;border:1px dashed var(--border);border-radius:12px}
+    .output{padding:12px;border-radius:12px;background:color-mix(in oklab,var(--surface) 90%, #eef3ff 10%);border:1px dashed var(--dashed);font-family:ui-monospace, Menlo, Consolas, monospace;white-space:pre-wrap;word-wrap:break-word;color:var(--mono)}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;background:color-mix(in oklab,var(--surface) 80%, #eef3ff 20%);border:1px solid var(--border);font-size:12px}
+    .stat{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center;box-shadow:var(--shadow)}
+    .qr-wrap{display:grid;place-items:center;min-height:260px;background:color-mix(in oklab,var(--surface) 90%, #eef3ff 10%);border:1px dashed var(--dashed);border-radius:12px}
     footer{margin-top:24px;text-align:center;color:var(--muted);font-size:12px}
-    a{color:var(--acc)}
+    a{color:var(--acc1)}
+    .style-card{margin:10px 0;border-radius:14px;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow);padding:12px}
+    .style-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+    .preview{font-size:1rem;margin-top:8px}
+    .theme{display:flex;align-items:center;gap:8px}
+    .switch{position:relative;width:54px;height:30px;background:color-mix(in oklab,var(--surface) 70%, #c8d5ff 30%);border:1px solid var(--border);border-radius:999px;cursor:pointer}
+    .knob{position:absolute;top:2px;left:2px;width:24px;height:24px;border-radius:999px;background:#fff;box-shadow:var(--shadow);transition:.2s}
+    html[data-theme="dark"] .switch{background:#0f2033}
+    html[data-theme="dark"] .knob{left:28px;background:#101a2a}
+    .emoji-grid{display:grid;grid-template-columns:1fr;gap:10px}
+    @media(min-width:600px){.emoji-grid{grid-template-columns:1fr 1fr}}
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <div class="brand">
-        <div class="logo">T</div>
+      <!-- CLICKABLE BRAND (go home) -->
+      <div id="brand" class="brand" title="Go to Fancy Text">
+        <div class="logo" aria-hidden="true">
+          <!-- inline logo svg (with spark; header logo may include T) -->
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+                <stop stop-color="#5b8cff"/><stop offset="1" stop-color="#2dd4bf"/>
+              </linearGradient>
+            </defs>
+            <rect width="64" height="64" rx="14" ry="14" fill="url(#g2)"/>
+            <g fill="#0b1220">
+              <path d="M44 20l-5 3 5 3-3 5 6-1 3 6 3-6 6 1-3-5 5-3-5-3 3-5-6 1-3-6-3 6-6-1z" opacity=".35"/>
+              <text x="50%" y="52%" dominant-baseline="middle" text-anchor="middle" font-family="Inter,Arial" font-weight="800" font-size="30">T</text>
+            </g>
+          </svg>
+        </div>
         <div>
           <div class="title">Tools Hub</div>
           <div class="subtitle">Fancy Text • Word Counter • QR Code</div>
         </div>
       </div>
+
       <nav>
         <button class="tab active" data-tab="fancy">Fancy Text</button>
         <button class="tab" data-tab="counter">Word Counter</button>
         <button class="tab" data-tab="qr">QR Code</button>
+        <div class="theme" title="Toggle light / dark">
+          <div class="switch" id="theme-toggle"><div class="knob"></div></div>
+        </div>
       </nav>
     </header>
 
@@ -68,14 +129,18 @@
         <label for="fancy-input">Enter text</label>
         <textarea id="fancy-input" placeholder="Type something creative..."></textarea>
         <div class="row" style="margin-top:8px">
-          <button class="btn" id="fancy-generate">Generate</button>
+          <span class="pill">Auto-generates as you type</span>
+          <button class="btn" id="rand-style">Random style</button>
           <button class="btn ghost" id="fancy-clear">Clear</button>
         </div>
+
+        <h3 style="margin:14px 0 6px">Emoji Suggestions 🎉</h3>
+        <div id="emoji-suggestions" class="emoji-grid"></div>
       </div>
+
       <div class="card">
-        <h2>Styles</h2>
-        <div class="pill" style="margin-bottom:10px">Tip: click a box to copy</div>
-        <div id="fancy-output" class="output" style="min-height:220px"></div>
+        <h2>Emoji Packs</h2>
+        <div id="preset-output"></div>
       </div>
     </section>
 
@@ -86,17 +151,17 @@
         <label for="wc-input">Paste or type your text</label>
         <textarea id="wc-input" placeholder="Paste your paragraph or tweet..."></textarea>
         <div class="row" style="margin-top:8px">
-          <button class="btn" id="wc-analyze">Analyze</button>
+          <span class="pill">Live counts – no button needed</span>
           <button class="btn ghost" id="wc-clear">Clear</button>
         </div>
       </div>
       <div class="card">
         <h2>Stats</h2>
-        <div class="stats">
-          <div class="stat"><div class="muted">Words</div><div id="stat-words" style="font-size:20px;font-weight:700">0</div></div>
-          <div class="stat"><div class="muted">Characters</div><div id="stat-chars" style="font-size:20px;font-weight:700">0</div></div>
-          <div class="stat"><div class="muted">Sentences</div><div id="stat-sent" style="font-size:20px;font-weight:700">0</div></div>
-          <div class="stat"><div class="muted">Reading time</div><div id="stat-read" style="font-size:20px;font-weight:700">0s</div></div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+          <div class="stat"><div class="muted">Words</div><div id="stat-words" style="font-size:22px;font-weight:800">0</div></div>
+          <div class="stat"><div class="muted">Characters</div><div id="stat-chars" style="font-size:22px;font-weight:800">0</div></div>
+          <div class="stat"><div class="muted">Sentences</div><div id="stat-sent" style="font-size:22px;font-weight:800">0</div></div>
+          <div class="stat"><div class="muted">Reading time</div><div id="stat-read" style="font-size:22px;font-weight:800">0s</div></div>
         </div>
         <h3 style="margin-top:14px;margin-bottom:6px">Cleaned text</h3>
         <div id="wc-clean" class="output" style="min-height:120px"></div>
@@ -112,16 +177,12 @@
         <div class="row" style="margin-top:8px">
           <label class="pill">Size
             <select id="qr-size" style="margin-left:8px">
-              <option>128</option>
-              <option selected>192</option>
-              <option>256</option>
-              <option>320</option>
-              <option>512</option>
+              <option>128</option><option selected>192</option><option>256</option><option>320</option><option>512</option>
             </select>
           </label>
-          <button class="btn" id="qr-generate">Generate</button>
-          <button class="btn ghost" id="qr-download" disabled>Download PNG</button>
+          <button class="btn" id="qr-download" disabled>Download PNG</button>
         </div>
+        <div id="qr-status" class="muted" style="margin-top:6px"></div>
       </div>
       <div class="card">
         <h2>Preview</h2>
@@ -130,163 +191,198 @@
     </section>
 
     <footer>
-      Built with ❤️ for speed & simplicity. <span class="muted">No trackers, no cookies.</span>
+      Built with ❤️ using the Aurora theme. <span class="muted">No trackers, no cookies.</span>
+      <noscript><div class="muted">This site needs JavaScript for all tools.</div></noscript>
     </footer>
   </div>
 
-  <!-- QRCode library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <!-- QR loader -->
+  <script>
+    (function loadQRCodeLib(){
+      const statusEl = document.getElementById('qr-status');
+      const sources = [
+        'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js',
+        'https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js',
+        'https://unpkg.com/qrcodejs@1.0.0/qrcode.min.js'
+      ];
+      function tryNext(i){
+        if (window.QRCode) { statusEl && (statusEl.textContent = ''); return; }
+        if (i >= sources.length){ window.__qrUnavailable = true; statusEl && (statusEl.textContent = 'QR engine could not load.'); return; }
+        const s = document.createElement('script'); s.src = sources[i]; s.async = true; s.onload = ()=> statusEl && (statusEl.textContent=''); s.onerror = ()=> tryNext(i+1); document.head.appendChild(s);
+      }
+      if (!window.QRCode) { statusEl && (statusEl.textContent = 'Loading QR engine…'); tryNext(0); }
+    })();
+  </script>
 
   <script>
-    // --- Tabs ---
+    // Theme
+    const root = document.documentElement;
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) root.setAttribute('data-theme', savedTheme);
+    document.getElementById('theme-toggle').addEventListener('click', ()=>{
+      const next = root.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next); localStorage.setItem('theme', next);
+    });
+
+    // Tabs + helper to switch programmatically
     const tabs = document.querySelectorAll('.tab');
     const sections = {
       fancy: document.getElementById('tab-fancy'),
       counter: document.getElementById('tab-counter'),
       qr: document.getElementById('tab-qr')
     };
-    tabs.forEach(btn=>btn.addEventListener('click',()=>{
-      tabs.forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      const id = btn.dataset.tab;
-      Object.entries(sections).forEach(([k,el])=>{
-        el.style.display = (k===id)?'grid':'none';
-      });
-    }));
-
-    // --- Fancy Text ---
-    const fancyInput = document.getElementById('fancy-input');
-    const fancyOut = document.getElementById('fancy-output');
-
-    const alphabets = {
-      bold: mapRange('A','Z',0x1D400).concat(mapRange('a','z',0x1D41A)).concat(mapDigits(0x1D7CE)),
-      italic: mapRange('A','Z',0x1D434).concat(mapRange('a','z',0x1D44E)),
-      monospace: mapRange('A','Z',0x1D670).concat(mapRange('a','z',0x1D68A)).concat(mapDigits(0x1D7F6)),
-      smallcaps: makeSmallCaps(),
-      fullwidth: makeFullWidth(),
-      script: mapRange('A','Z',0x1D49C).concat(mapRange('a','z',0x1D4B6)),
-    };
-
-    function mapRange(startChar, endChar, base){
-      const res = [];
-      for(let i=startChar.charCodeAt(0); i<=endChar.charCodeAt(0); i++){
-        res.push(String.fromCodePoint(base + (i - startChar.charCodeAt(0))));
-      }
-      return res;
+    function setActive(id){
+      tabs.forEach(b=> b.classList.toggle('active', b.dataset.tab===id));
+      Object.entries(sections).forEach(([k,el])=> el.style.display = (k===id)?'grid':'none');
     }
-    function mapDigits(base){
-      const res = [];
-      for(let i=0;i<10;i++) res.push(String.fromCodePoint(base+i));
-      return res;
+    tabs.forEach(btn=> btn.addEventListener('click', ()=> setActive(btn.dataset.tab)));
+
+    // Clicking brand/logo goes "home" (Fancy Text)
+    document.getElementById('brand').addEventListener('click', ()=>{
+      setActive('fancy');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Clipboard helpers
+    function createHiddenTextarea(text){
+      const ta=document.createElement('textarea'); ta.value=text; ta.setAttribute('readonly','');
+      ta.style.position='fixed'; ta.style.top='-1000px'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.focus(); ta.select(); return ta;
     }
-    function makeSmallCaps(){
-      const map = {};
-      const src = 'abcdefghijklmnopqrstuvwxyz';
-      const tgt = 'ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ';
-      for(let i=0;i<src.length;i++) map[src[i]] = tgt[i];
-      return map;
-    }
-    function makeFullWidth(){
-      const map = {};
-      for(let i=33;i<=126;i++) map[String.fromCharCode(i)] = String.fromCharCode(0xFF00 + i - 0x20);
-      return map;
+    async function copyText(text){
+      try{ if(navigator.clipboard && window.isSecureContext){ await navigator.clipboard.writeText(text); return true; } }
+      catch(_) {}
+      let ta=createHiddenTextarea(text); let ok=false;
+      try{ ok=document.execCommand('copy'); }catch(_){ ok=false; }
+      if(ok){ document.body.removeChild(ta); return true; }
+      setTimeout(()=>{ try{ document.body.removeChild(ta);}catch(_){ } },3000);
+      return false;
     }
 
-    function stylize(text, style){
-      if(style==='smallcaps' || style==='fullwidth'){
-        const table = alphabets[style];
-        return text.split('').map(ch=>{
-          const lower = ch.toLowerCase();
-          if(style==='smallcaps' && table[lower]) return table[lower];
-          if(style==='fullwidth' && table[ch]) return table[ch];
-          if(style==='fullwidth' && ch===' ') return '\\u3000';
-          return ch;
-        }).join('');
-      }
-      const base = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      const table = alphabets[style];
-      return text.split('').map(ch=>{
-        const idx = base.indexOf(ch);
-        if(idx>-1){ return table[idx] || ch; }
-        return ch;
-      }).join('');
+    // Emoji packs & random suggestions
+    const fancyInput=document.getElementById('fancy-input');
+    const presetOut=document.getElementById('preset-output');
+    const sugOut=document.getElementById('emoji-suggestions');
+
+    const PRESETS=[
+      {name:'Gun fire',   fn:t=>`◥▥ ${t} ──── ➤ ✴`},
+      {name:'King',       fn:t=>`✧✦ ${t.toUpperCase().split('').join(' ')} ✦✧`},
+      {name:'Devil',      fn:t=>`😈 ${t} 😈`},
+      {name:'Cute Hearts',fn:t=>`💕 ${t} 💕 ♥︎ ♡`},
+      {name:'Gaming',     fn:t=>`🎮👑 ${t.replace(/\\s+/g,'_')} 👑🎮`},
+      {name:'Aesthetic',  fn:t=>`⋆｡°✩ ${t} ✩°｡⋆`},
+      {name:'Brackets',   fn:t=>`『 ${t} 』`},
+      {name:'Stars Line', fn:t=>`★彡 ${t} 彡★`}
+    ];
+
+    const EMOJI_SETS=[['✨','💎','🌟','⚡'],['💕','💖','💘','💝'],['🔥','🧨','⚔️','💥'],['🎮','👑','🛡️','⚔️'],['🌸','🌺','🌼','🌷'],['🖤','🤍','💜','💙']];
+
+    function randomFrom(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+    function spaced(t){ return t.split('').join(' '); }
+    function snake(t){ return t.trim().replace(/\\s+/g,'_'); }
+
+    function randomDecorations(t){
+      const set=randomFrom(EMOJI_SETS); const a=randomFrom(set), b=randomFrom(set);
+      const variants=[`${a}${b} ${t} ${b}${a}`, `${a} ${spaced(t)} ${b}`, `${a} ${snake(t)} ${b}`, `${a}• ${t} •${b}`, `${a} ${t.toUpperCase()} ${b}`];
+      return variants[Math.floor(Math.random()*variants.length)];
     }
 
-    function renderFancy(){
-      const t = fancyInput.value.trim();
-      if(!t){ fancyOut.textContent=''; return; }
-      const styles = ['bold','italic','monospace','script','smallcaps','fullwidth'];
-      fancyOut.innerHTML = styles.map(s=>{
-        const out = stylize(t, s);
-        return `<div class="card" style="margin:8px 0;background:#0b1424;border:1px solid var(--border)">
-          <div class="row" style="justify-content:space-between;align-items:center">
-            <div class="pill">${s}</div>
-            <button class="btn ghost" data-copy="${escapeHtml(out)}">Copy</button>
-          </div>
-          <div class="output" style="margin-top:8px">${escapeHtml(out)}</div>
+    function renderPresets(text){
+      presetOut.innerHTML = PRESETS.map(p=>{
+        const out=p.fn(text);
+        return `<div class="style-card">
+          <div class="style-head"><div class="pill">${p.name}</div>
+            <button class="btn" data-copy="${escapeHtml(out)}">Copy</button></div>
+          <div class="output preview">${escapeHtml(out)}</div>
         </div>`;
       }).join('');
-      fancyOut.querySelectorAll('button[data-copy]').forEach(b=>{
-        b.addEventListener('click',()=>{
-          const val = unescapeHtml(b.getAttribute('data-copy'));
-          navigator.clipboard.writeText(val);
-          b.textContent='Copied!'; setTimeout(()=>b.textContent='Copy',1200);
-        });
-      });
+      presetOut.querySelectorAll('button[data-copy]').forEach(b=> b.addEventListener('click', async ()=>{
+        const val=unescapeHtml(b.getAttribute('data-copy'));
+        const ok=await copyText(val);
+        b.textContent= ok? 'Copied!' : 'Press ⌘/Ctrl+C';
+        setTimeout(()=>b.textContent='Copy', ok? 1200:2200);
+      }));
     }
 
-    function escapeHtml(str){
-      return str.replace(/[&<>]/g, s=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[s]));
-    }
-    function unescapeHtml(str){
-      const e = document.createElement('textarea'); e.innerHTML=str; return e.value;
+    function renderSuggestions(text, count=8){
+      const items=Array.from({length:count},()=> randomDecorations(text));
+      sugOut.innerHTML = items.map((out,i)=> `
+        <div class="style-card" style="padding:10px 12px">
+          <div class="style-head"><div class="pill">Suggestion ${i+1}</div>
+            <button class="btn ghost" data-copy="${escapeHtml(out)}">Copy</button></div>
+          <div class="output preview">${escapeHtml(out)}</div>
+        </div>`).join('');
+      sugOut.querySelectorAll('button[data-copy]').forEach(b=> b.addEventListener('click', async ()=>{
+        const val=unescapeHtml(b.getAttribute('data-copy'));
+        const ok=await copyText(val);
+        b.textContent= ok? 'Copied!' : 'Press ⌘/Ctrl+C';
+        setTimeout(()=>b.textContent='Copy', ok? 1200:2200);
+      }));
     }
 
-    document.getElementById('fancy-generate').addEventListener('click', renderFancy);
-    document.getElementById('fancy-clear').addEventListener('click', ()=>{fancyInput.value='';fancyOut.textContent='';});
+    function escapeHtml(str){ return str.replace(/[&<>]/g, s=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[s])); }
+    function unescapeHtml(str){ const e=document.createElement('textarea'); e.innerHTML=str; return e.value; }
 
-    // --- Word Counter ---
-    const wcIn = document.getElementById('wc-input');
-    const wcClean = document.getElementById('wc-clean');
+    function refreshAll(){ const t=fancyInput.value || 'Your Text'; renderPresets(t); renderSuggestions(t, 8); }
+
+    // Random style button => more suggestions + scroll
+    document.getElementById('rand-style').addEventListener('click', ()=>{
+      const t=fancyInput.value || 'Your Text'; renderSuggestions(t, 16);
+      document.getElementById('emoji-suggestions').scrollIntoView({behavior:'smooth', block:'start'});
+    });
+
+    fancyInput.addEventListener('input', refreshAll);
+    document.getElementById('fancy-clear').addEventListener('click', ()=>{ fancyInput.value=''; refreshAll(); fancyInput.focus(); });
+
+    // Word Counter
+    const wcIn=document.getElementById('wc-input'), wcClean=document.getElementById('wc-clean');
+    function metricsFromText(raw){
+      const cleaned=(raw||'').replace(/\\s+/g,' ').trim();
+      const words=cleaned?cleaned.split(/\\s+/).length:0;
+      const chars=(raw||'').length;
+      const sentences=((raw||'').match(/[.!?]+\\s|\\n/g)||[]).length + ((raw||'').trim()?1:0);
+      const readSec=Math.ceil(words/200*60);
+      return {words,chars,sentences,readSec,cleaned};
+    }
     function analyze(){
-      const raw = wcIn.value || '';
-      const cleaned = raw.replace(/\\s+/g,' ').trim();
-      const words = cleaned ? cleaned.split(/\\s+/).length : 0;
-      const chars = raw.length;
-      const sentences = (raw.match(/[.!?]+\\s|\\n/g)||[]).length + (raw.trim()?1:0);
-      const readSec = Math.ceil(words/200*60);
-      document.getElementById('stat-words').textContent = words;
-      document.getElementById('stat-chars').textContent = chars;
-      document.getElementById('stat-sent').textContent = sentences;
-      document.getElementById('stat-read').textContent = readSec<60? `${readSec}s` : `${(readSec/60).toFixed(1)}m`;
-      wcClean.textContent = cleaned;
+      const m=metricsFromText(wcIn.value||'');
+      document.getElementById('stat-words').textContent=m.words;
+      document.getElementById('stat-chars').textContent=m.chars;
+      document.getElementById('stat-sent').textContent=m.sentences;
+      document.getElementById('stat-read').textContent=m.readSec<60?`${m.readSec}s`:`${(m.readSec/60).toFixed(1)}m`;
+      wcClean.textContent=m.cleaned;
     }
-    document.getElementById('wc-analyze').addEventListener('click', analyze);
-    document.getElementById('wc-clear').addEventListener('click', ()=>{wcIn.value=''; analyze();});
+    wcIn.addEventListener('input', analyze);
+    document.getElementById('wc-clear').addEventListener('click', ()=>{ wcIn.value=''; analyze(); wcIn.focus(); });
     analyze();
 
-    // --- QR Code ---
-    let qr;
+    // QR Code
+    let qr; const qrText = document.getElementById('qr-text'); const qrSize=document.getElementById('qr-size'); const qrDl=document.getElementById('qr-download'); const qrStatus=document.getElementById('qr-status');
     function makeQR(){
-      const el = document.getElementById('qrcode');
-      el.innerHTML='';
-      const text = document.getElementById('qr-text').value || '';
-      const size = parseInt(document.getElementById('qr-size').value,10);
-      if(!text){ document.getElementById('qr-download').disabled=true; return; }
-      qr = new QRCode(el, {text, width:size, height:size, correctLevel: QRCode.CorrectLevel.H});
-      document.getElementById('qr-download').disabled=false;
+      const el=document.getElementById('qrcode'); el.innerHTML='';
+      const text=qrText.value||''; const size=parseInt(qrSize.value,10);
+      if(!text){ qrDl.disabled=true; return;}
+      if(!window.QRCode){ qrStatus && (qrStatus.textContent='QR engine still loading…'); qrDl.disabled=true; return;}
+      qr=new QRCode(el,{text,width:size,height:size,correctLevel:QRCode.CorrectLevel.H});
+      qrDl.disabled=false; qrStatus && (qrStatus.textContent='');
     }
-    document.getElementById('qr-generate').addEventListener('click', makeQR);
-
-    document.getElementById('qr-download').addEventListener('click', ()=>{
-      const el = document.querySelector('#qrcode canvas, #qrcode img');
-      if(!el){return}
-      let dataUrl;
-      if(el.tagName==='CANVAS') dataUrl = el.toDataURL('image/png');
-      else dataUrl = el.getAttribute('src');
-      const a = document.createElement('a');
-      a.href = dataUrl; a.download = 'qrcode.png'; a.click();
+    qrText.addEventListener('input', makeQR);
+    qrSize.addEventListener('change', makeQR);
+    qrDl.addEventListener('click', ()=>{
+      const el=document.querySelector('#qrcode canvas, #qrcode img'); if(!el){return}
+      const dataUrl = el.tagName==='CANVAS'? el.toDataURL('image/png') : el.getAttribute('src');
+      const a=document.createElement('a'); a.href=dataUrl; a.download='qrcode.png'; a.click();
     });
+
+    // Quick sanity tests (console)
+    (function tests(){
+      const out=[]; const eq=(a,b,n)=>{out.push([n,a===b]); if(a!==b) console.error('❌',n,a,b);};
+      const demo=(()=>{const set=['✨','💕','🔥']; return `${set[0]} demo ${set[1]}`})(); eq(/[^\\w\\s]/.test(demo),'emoji exists');
+      eq(typeof copyText,'function','copy helper exists');
+      console.table(out.map(([n,p])=>({test:n,pass:p})));
+    })();
+
+    refreshAll();
   </script>
 </body>
 </html>
