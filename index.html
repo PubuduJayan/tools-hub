@@ -46,9 +46,7 @@
 
     header{display:flex;gap:16px;align-items:center;justify-content:space-between;margin-bottom:16px}
     .brand{display:flex;align-items:center;gap:12px;cursor:pointer} /* clickable brand */
-    .logo{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;box-shadow:var(--shadow);position:relative;overflow:hidden}
     .logo svg{width:100%;height:100%}
-    .logo::after{content:"";position:absolute;inset:0;background:conic-gradient(from 200deg,var(--acc1),var(--acc2),var(--acc1));mix-blend-mode:soft-light;opacity:.6;animation:spin 6s linear infinite}
     @keyframes spin{to{transform:rotate(1turn)}}
     .title{font-size:20px;font-weight:800}
     .subtitle{color:var(--muted);font-size:13px}
@@ -84,44 +82,75 @@
     html[data-theme="dark"] .knob{left:28px;background:#101a2a}
     .emoji-grid{display:grid;grid-template-columns:1fr;gap:10px}
     @media(min-width:600px){.emoji-grid{grid-template-columns:1fr 1fr}}
+	/* Brand stacked vertically */
+	.brand {
+	  display: flex;
+	  flex-direction: column;
+	  align-items: flex-start;  /* use center if you prefer centered logo/text */
+	  gap: 10px;
+	  cursor: pointer;
+	}
+
+	/* Pure logo image — no border, no radius, no shadow */
+	/* Pure logo image only — no border, no background, no shadow */
+	.logo {
+	  width: 150px;   /* adjust size */
+	  height: auto;
+	}
+
+	.logo img {
+	  width: 100%;
+	  height: auto;
+	  display: block;
+	}
+
+
+	/* Title under logo */
+	.brand-text .title {
+	  font-size: 28px;
+	  font-weight: 800;
+	  line-height: 1.1;
+	  margin-top: 2px;
+	  margin-bottom: 4px;
+	  background: linear-gradient(90deg,#6a11cb 0%, #2575fc 50%, #ff7e5f 100%);
+	  -webkit-background-clip: text;
+	  -webkit-text-fill-color: transparent;
+	}
+
+	/* Subtitle */
+	.brand-text .subtitle {
+	  font-size: 14px;
+	  color: var(--muted);
+	  letter-spacing: .3px;
+	}
+
+
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <!-- CLICKABLE BRAND (go home) -->
-      <div id="brand" class="brand" title="Go to Fancy Text">
-        <div class="logo" aria-hidden="true">
-          <!-- inline logo svg (with spark; header logo may include T) -->
-          <img src="https://site2025.blob.core.windows.net/website-images/logo.png.png" alt="Tools Hub Logo" />
-          <!--<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">-->
-            <defs>
-              <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
-                <stop stop-color="#5b8cff"/><stop offset="1" stop-color="#2dd4bf"/>
-              </linearGradient>
-            </defs>
-            <rect width="64" height="64" rx="14" ry="14" fill="url(#g2)"/>
-            <g fill="#0b1220">
-              <path d="M44 20l-5 3 5 3-3 5 6-1 3 6 3-6 6 1-3-5 5-3-5-3 3-5-6 1-3-6-3 6-6-1z" opacity=".35"/>
-              <text x="50%" y="52%" dominant-baseline="middle" text-anchor="middle" font-family="Inter,Arial" font-weight="800" font-size="30">T</text>
-            </g>
-          </svg>
-        </div>
-        <div>
-          <div class="title">Tools Hub</div>
-          <div class="subtitle">Fancy Text • Word Counter • QR Code</div>
-        </div>
-      </div>
+	  <div id="brand" class="brand" title="Go to Fancy Text">
+		<!-- Logo only -->
+		<div class="logo">
+		  <img src="https://site2025.blob.core.windows.net/website-images/sitelogo.png" alt="Tools Hub Logo" />
+		</div>
 
-      <nav>
-        <button class="tab active" data-tab="fancy">Fancy Text</button>
-        <button class="tab" data-tab="counter">Word Counter</button>
-        <button class="tab" data-tab="qr">QR Code</button>
-        <div class="theme" title="Toggle light / dark">
-          <div class="switch" id="theme-toggle"><div class="knob"></div></div>
-        </div>
-      </nav>
-    </header>
+		<!-- Subtitle under logo -->
+		<div class="brand-text">
+		  <div class="subtitle">Fancy Text • Word Counter • QR Code</div>
+		</div>
+	  </div>
+
+	  <nav>
+		<button class="tab active" data-tab="fancy">Fancy Text</button>
+		<button class="tab" data-tab="counter">Word Counter</button>
+		<button class="tab" data-tab="qr">QR Code</button>
+		<div class="theme" title="Toggle light / dark">
+		  <div class="switch" id="theme-toggle"><div class="knob"></div></div>
+		</div>
+	  </nav>
+	</header>
 
     <!-- FANCY TEXT -->
     <section id="tab-fancy" class="grid">
