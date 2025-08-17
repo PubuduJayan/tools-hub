@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tools Hub – Fancy Text • Word Counter • QR Code</title>
+  <meta name="description" content="Free online tools: Fancy Text Generator, Word & Character Counter, QR Code Creator – all in one page." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0f16; --card:#101726; --muted:#a9b3c7; --text:#e6edf7; --acc:#7c9cff; --acc2:#00d7c0; --border:#1b2538;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);}
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+    header{display:flex;gap:16px;align-items:center;justify-content:space-between;margin-bottom:16px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--acc),var(--acc2));display:grid;place-items:center;color:#0b0f16;font-weight:800}
+    .title{font-size:20px;font-weight:700}
+    .subtitle{color:var(--muted);font-size:13px}
+    nav{display:flex;gap:8px;flex-wrap:wrap}
+    .tab{background:transparent;border:1px solid var(--border);color:var(--muted);padding:10px 14px;border-radius:12px;cursor:pointer;transition:.2s}
+    .tab.active{color:var(--text);border-color:var(--acc);box-shadow:0 0 0 2px color-mix(in oklab, var(--acc) 20%, transparent)}
+    .grid{display:grid;grid-template-columns:1fr;gap:16px}
+    @media(min-width:900px){.grid{grid-template-columns:2fr 1fr}}
+    .card{background:linear-gradient(180deg, color-mix(in oklab,var(--card),#000 10%), var(--card));border:1px solid var(--border);border-radius:16px;padding:16px}
+    .card h2{margin:0 0 10px;font-size:18px}
+    label{font-size:13px;color:var(--muted);display:block;margin-bottom:8px}
+    textarea, input[type="text"], select{width:100%;padding:12px 14px;border-radius:12px;background:#0c1321;color:var(--text);border:1px solid var(--border);outline:none}
+    textarea{min-height:150px;resize:vertical}
+    .row{display:flex;gap:8px;flex-wrap:wrap}
+    .btn{background:linear-gradient(135deg,var(--acc),var(--acc2));border:none;color:#051019;padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer}
+    .btn.ghost{background:transparent;border:1px solid var(--border);color:var(--muted)}
+    .muted{color:var(--muted)}
+    .output{padding:12px;border-radius:12px;background:#0c1321;border:1px dashed var(--border);font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", "Courier New", monospace;white-space:pre-wrap;word-wrap:break-word}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;background:#0d1525;border:1px solid var(--border);font-size:12px}
+    .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+    @media(min-width:600px){.stats{grid-template-columns:repeat(4,1fr)}}
+    .stat{background:#0d1525;border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center}
+    .qr-wrap{display:grid;place-items:center;min-height:260px;background:#0c1321;border:1px dashed var(--border);border-radius:12px}
+    footer{margin-top:24px;text-align:center;color:var(--muted);font-size:12px}
+    a{color:var(--acc)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">T</div>
+        <div>
+          <div class="title">Tools Hub</div>
+          <div class="subtitle">Fancy Text • Word Counter • QR Code</div>
+        </div>
+      </div>
+      <nav>
+        <button class="tab active" data-tab="fancy">Fancy Text</button>
+        <button class="tab" data-tab="counter">Word Counter</button>
+        <button class="tab" data-tab="qr">QR Code</button>
+      </nav>
+    </header>
+
+    <!-- FANCY TEXT -->
+    <section id="tab-fancy" class="grid">
+      <div class="card">
+        <h2>Fancy Text Generator</h2>
+        <label for="fancy-input">Enter text</label>
+        <textarea id="fancy-input" placeholder="Type something creative..."></textarea>
+        <div class="row" style="margin-top:8px">
+          <button class="btn" id="fancy-generate">Generate</button>
+          <button class="btn ghost" id="fancy-clear">Clear</button>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Styles</h2>
+        <div class="pill" style="margin-bottom:10px">Tip: click a box to copy</div>
+        <div id="fancy-output" class="output" style="min-height:220px"></div>
+      </div>
+    </section>
+
+    <!-- WORD COUNTER -->
+    <section id="tab-counter" class="grid" style="display:none">
+      <div class="card">
+        <h2>Word & Character Counter</h2>
+        <label for="wc-input">Paste or type your text</label>
+        <textarea id="wc-input" placeholder="Paste your paragraph or tweet..."></textarea>
+        <div class="row" style="margin-top:8px">
+          <button class="btn" id="wc-analyze">Analyze</button>
+          <button class="btn ghost" id="wc-clear">Clear</button>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Stats</h2>
+        <div class="stats">
+          <div class="stat"><div class="muted">Words</div><div id="stat-words" style="font-size:20px;font-weight:700">0</div></div>
+          <div class="stat"><div class="muted">Characters</div><div id="stat-chars" style="font-size:20px;font-weight:700">0</div></div>
+          <div class="stat"><div class="muted">Sentences</div><div id="stat-sent" style="font-size:20px;font-weight:700">0</div></div>
+          <div class="stat"><div class="muted">Reading time</div><div id="stat-read" style="font-size:20px;font-weight:700">0s</div></div>
+        </div>
+        <h3 style="margin-top:14px;margin-bottom:6px">Cleaned text</h3>
+        <div id="wc-clean" class="output" style="min-height:120px"></div>
+      </div>
+    </section>
+
+    <!-- QR CODE -->
+    <section id="tab-qr" class="grid" style="display:none">
+      <div class="card">
+        <h2>QR Code Creator</h2>
+        <label for="qr-text">Text / URL</label>
+        <input type="text" id="qr-text" placeholder="https://example.com or any text" />
+        <div class="row" style="margin-top:8px">
+          <label class="pill">Size
+            <select id="qr-size" style="margin-left:8px">
+              <option>128</option>
+              <option selected>192</option>
+              <option>256</option>
+              <option>320</option>
+              <option>512</option>
+            </select>
+          </label>
+          <button class="btn" id="qr-generate">Generate</button>
+          <button class="btn ghost" id="qr-download" disabled>Download PNG</button>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Preview</h2>
+        <div class="qr-wrap"><div id="qrcode"></div></div>
+      </div>
+    </section>
+
+    <footer>
+      Built with ❤️ for speed & simplicity. <span class="muted">No trackers, no cookies.</span>
+    </footer>
+  </div>
+
+  <!-- QRCode library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <script>
+    // --- Tabs ---
+    const tabs = document.querySelectorAll('.tab');
+    const sections = {
+      fancy: document.getElementById('tab-fancy'),
+      counter: document.getElementById('tab-counter'),
+      qr: document.getElementById('tab-qr')
+    };
+    tabs.forEach(btn=>btn.addEventListener('click',()=>{
+      tabs.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const id = btn.dataset.tab;
+      Object.entries(sections).forEach(([k,el])=>{
+        el.style.display = (k===id)?'grid':'none';
+      });
+    }));
+
+    // --- Fancy Text ---
+    const fancyInput = document.getElementById('fancy-input');
+    const fancyOut = document.getElementById('fancy-output');
+
+    const alphabets = {
+      bold: mapRange('A','Z',0x1D400).concat(mapRange('a','z',0x1D41A)).concat(mapDigits(0x1D7CE)),
+      italic: mapRange('A','Z',0x1D434).concat(mapRange('a','z',0x1D44E)),
+      monospace: mapRange('A','Z',0x1D670).concat(mapRange('a','z',0x1D68A)).concat(mapDigits(0x1D7F6)),
+      smallcaps: makeSmallCaps(),
+      fullwidth: makeFullWidth(),
+      script: mapRange('A','Z',0x1D49C).concat(mapRange('a','z',0x1D4B6)),
+    };
+
+    function mapRange(startChar, endChar, base){
+      const res = [];
+      for(let i=startChar.charCodeAt(0); i<=endChar.charCodeAt(0); i++){
+        res.push(String.fromCodePoint(base + (i - startChar.charCodeAt(0))));
+      }
+      return res;
+    }
+    function mapDigits(base){
+      const res = [];
+      for(let i=0;i<10;i++) res.push(String.fromCodePoint(base+i));
+      return res;
+    }
+    function makeSmallCaps(){
+      const map = {};
+      const src = 'abcdefghijklmnopqrstuvwxyz';
+      const tgt = 'ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ';
+      for(let i=0;i<src.length;i++) map[src[i]] = tgt[i];
+      return map;
+    }
+    function makeFullWidth(){
+      const map = {};
+      for(let i=33;i<=126;i++) map[String.fromCharCode(i)] = String.fromCharCode(0xFF00 + i - 0x20);
+      return map;
+    }
+
+    function stylize(text, style){
+      if(style==='smallcaps' || style==='fullwidth'){
+        const table = alphabets[style];
+        return text.split('').map(ch=>{
+          const lower = ch.toLowerCase();
+          if(style==='smallcaps' && table[lower]) return table[lower];
+          if(style==='fullwidth' && table[ch]) return table[ch];
+          if(style==='fullwidth' && ch===' ') return '\\u3000';
+          return ch;
+        }).join('');
+      }
+      const base = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      const table = alphabets[style];
+      return text.split('').map(ch=>{
+        const idx = base.indexOf(ch);
+        if(idx>-1){ return table[idx] || ch; }
+        return ch;
+      }).join('');
+    }
+
+    function renderFancy(){
+      const t = fancyInput.value.trim();
+      if(!t){ fancyOut.textContent=''; return; }
+      const styles = ['bold','italic','monospace','script','smallcaps','fullwidth'];
+      fancyOut.innerHTML = styles.map(s=>{
+        const out = stylize(t, s);
+        return `<div class="card" style="margin:8px 0;background:#0b1424;border:1px solid var(--border)">
+          <div class="row" style="justify-content:space-between;align-items:center">
+            <div class="pill">${s}</div>
+            <button class="btn ghost" data-copy="${escapeHtml(out)}">Copy</button>
+          </div>
+          <div class="output" style="margin-top:8px">${escapeHtml(out)}</div>
+        </div>`;
+      }).join('');
+      fancyOut.querySelectorAll('button[data-copy]').forEach(b=>{
+        b.addEventListener('click',()=>{
+          const val = unescapeHtml(b.getAttribute('data-copy'));
+          navigator.clipboard.writeText(val);
+          b.textContent='Copied!'; setTimeout(()=>b.textContent='Copy',1200);
+        });
+      });
+    }
+
+    function escapeHtml(str){
+      return str.replace(/[&<>]/g, s=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[s]));
+    }
+    function unescapeHtml(str){
+      const e = document.createElement('textarea'); e.innerHTML=str; return e.value;
+    }
+
+    document.getElementById('fancy-generate').addEventListener('click', renderFancy);
+    document.getElementById('fancy-clear').addEventListener('click', ()=>{fancyInput.value='';fancyOut.textContent='';});
+
+    // --- Word Counter ---
+    const wcIn = document.getElementById('wc-input');
+    const wcClean = document.getElementById('wc-clean');
+    function analyze(){
+      const raw = wcIn.value || '';
+      const cleaned = raw.replace(/\\s+/g,' ').trim();
+      const words = cleaned ? cleaned.split(/\\s+/).length : 0;
+      const chars = raw.length;
+      const sentences = (raw.match(/[.!?]+\\s|\\n/g)||[]).length + (raw.trim()?1:0);
+      const readSec = Math.ceil(words/200*60);
+      document.getElementById('stat-words').textContent = words;
+      document.getElementById('stat-chars').textContent = chars;
+      document.getElementById('stat-sent').textContent = sentences;
+      document.getElementById('stat-read').textContent = readSec<60? `${readSec}s` : `${(readSec/60).toFixed(1)}m`;
+      wcClean.textContent = cleaned;
+    }
+    document.getElementById('wc-analyze').addEventListener('click', analyze);
+    document.getElementById('wc-clear').addEventListener('click', ()=>{wcIn.value=''; analyze();});
+    analyze();
+
+    // --- QR Code ---
+    let qr;
+    function makeQR(){
+      const el = document.getElementById('qrcode');
+      el.innerHTML='';
+      const text = document.getElementById('qr-text').value || '';
+      const size = parseInt(document.getElementById('qr-size').value,10);
+      if(!text){ document.getElementById('qr-download').disabled=true; return; }
+      qr = new QRCode(el, {text, width:size, height:size, correctLevel: QRCode.CorrectLevel.H});
+      document.getElementById('qr-download').disabled=false;
+    }
+    document.getElementById('qr-generate').addEventListener('click', makeQR);
+
+    document.getElementById('qr-download').addEventListener('click', ()=>{
+      const el = document.querySelector('#qrcode canvas, #qrcode img');
+      if(!el){return}
+      let dataUrl;
+      if(el.tagName==='CANVAS') dataUrl = el.toDataURL('image/png');
+      else dataUrl = el.getAttribute('src');
+      const a = document.createElement('a');
+      a.href = dataUrl; a.download = 'qrcode.png'; a.click();
+    });
+  </script>
+</body>
+</html>
