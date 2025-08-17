@@ -123,34 +123,53 @@
 	  color: var(--muted);
 	  letter-spacing: .3px;
 	}
-
+	.ad-banner {
+	  text-align: center;
+	  margin: 20px 0;
+	}
 
   </style>
-</head>
-<body>
-  <div class="container">
-    <header>
+	</head>
+	<body>
+	  <div class="container">
+	  <header>
 	  <div id="brand" class="brand" title="Go to Fancy Text">
-		<!-- Logo only -->
-		<div class="logo">
-		  <img src="https://site2025.blob.core.windows.net/website-images/sitelogo.png" alt="Tools Hub Logo" />
-		</div>
-
-		<!-- Subtitle under logo -->
-		<div class="brand-text">
-		  <div class="subtitle">Fancy Text • Word Counter • QR Code</div>
-		</div>
+	    <!-- Logo only -->
+	    <div class="logo">
+	      <img src="https://site2025.blob.core.windows.net/website-images/sitelogo.png" alt="Tools Hub Logo" />
+	    </div>
+	
+	    <!-- Subtitle under logo -->
+	    <div class="brand-text">
+	      <div class="subtitle">Fancy Text • Word Counter • QR Code</div>
+	    </div>
 	  </div>
-
+	
 	  <nav>
-		<button class="tab active" data-tab="fancy">Fancy Text</button>
-		<button class="tab" data-tab="counter">Word Counter</button>
-		<button class="tab" data-tab="qr">QR Code</button>
-		<div class="theme" title="Toggle light / dark">
-		  <div class="switch" id="theme-toggle"><div class="knob"></div></div>
-		</div>
+	    <button class="tab active" data-tab="fancy">Fancy Text</button>
+	    <button class="tab" data-tab="counter">Word Counter</button>
+	    <button class="tab" data-tab="qr">QR Code</button>
+	    <div class="theme" title="Toggle light / dark">
+	      <div class="switch" id="theme-toggle"><div class="knob"></div></div>
+	    </div>
 	  </nav>
 	</header>
+	
+	<!-- Place banner BELOW header, not inside -->
+	<div class="ad-banner">
+	  <!-- Adsterra Banner Code -->
+	  <script type="text/javascript">
+	    atOptions = {
+	      'key' : 'df27d4b0ab023a1588c4ee0e698cbdc7',
+	      'format' : 'iframe',
+	      'height' : 90,
+	      'width' : 728,
+	      'params' : {}
+	    };
+	  </script>
+	  <script type="text/javascript" src="//www.highperformanceformat.com/df27d4b0ab023a1588c4ee0e698cbdc7/invoke.js"></script>
+	</div>
+
 
     <!-- FANCY TEXT -->
     <section id="tab-fancy" class="grid">
