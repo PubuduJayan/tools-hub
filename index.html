@@ -123,50 +123,44 @@
 	  color: var(--muted);
 	  letter-spacing: .3px;
 	}
-	.ad-banner {
-	  text-align: center;
-	  margin: 20px 0;
-	}
-  .ad-banner{ text-align:center; margin:22px 0; min-height:50px; }
-  @media (min-width: 992px){ .ad-banner{ min-height:90px; } }
-
-  footer{
-    text-align:center;
-    padding:16px;
-    font-size:14px;
-    color:var(--muted);
-    border-top:1px solid var(--border);
-    margin-top:30px;
-  }
+	
+	footer{
+	    text-align:center;
+	    padding:16px;
+	    font-size:14px;
+	    color:var(--muted);
+	    border-top:1px solid var(--border);
+	    margin-top:30px;
+	  }
 
   </style>
 	</head>
-	<body>
-	  <div class="container">
-	  <header>
-	  <div id="brand" class="brand" title="Go to Fancy Text">
-	    <!-- Logo only -->
-	    <div class="logo">
-	      <img src="https://site2025.blob.core.windows.net/website-images/sitelogo.png" alt="Tools Hub Logo" />
-	    </div>
-	
-	    <!-- Subtitle under logo -->
-	    <div class="brand-text">
-	      <div class="subtitle">Fancy Text • Word Counter • QR Code</div>
-	    </div>
-	  </div>
-	
-	  <nav>
-	    <button class="tab active" data-tab="fancy">Fancy Text</button>
-	    <button class="tab" data-tab="counter">Word Counter</button>
-	    <button class="tab" data-tab="qr">QR Code</button>
-	    <div class="theme" title="Toggle light / dark">
-	      <div class="switch" id="theme-toggle"><div class="knob"></div></div>
-	    </div>
-	  </nav>
-	</header>
+<body>
+  <div class="container">
+    <header>
+      <div id="brand" class="brand" title="Go to Fancy Text">
+        <!-- Logo only -->
+        <div class="logo">
+          <img src="https://site2025.blob.core.windows.net/website-images/sitelogo.png" alt="Tools Hub Logo" />
+        </div>
 
-		  <!-- TOP BANNER (below header) -->
+        <!-- Subtitle under logo -->
+        <div class="brand-text">
+          <div class="subtitle">Fancy Text • Word Counter • QR Code</div>
+        </div>
+      </div>
+
+      <nav>
+        <button class="tab active" data-tab="fancy">Fancy Text</button>
+        <button class="tab" data-tab="counter">Word Counter</button>
+        <button class="tab" data-tab="qr">QR Code</button>
+        <div class="theme" title="Toggle light / dark">
+          <div class="switch" id="theme-toggle"><div class="knob"></div></div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- TOP BANNER (below header) -->
     <div class="ad-banner" id="adsterra-top"></div>
 
     <!-- FANCY TEXT -->
@@ -237,15 +231,21 @@
       </div>
     </section>
 
-	<!-- BOTTOM BANNER (above footer) -->
+    <!-- BOTTOM BANNER (above footer) -->
     <div class="ad-banner" id="adsterra-bottom"></div>
 
-     <footer>
+    <footer>
       Built with ❤️ using the Aurora theme. <span class="muted">No trackers, no cookies.</span>
       <p>© 2025 Tools Hub. All rights reserved.</p>
       <noscript><div class="muted">This site needs JavaScript for all tools.</div></noscript>
     </footer>
   </div>
+
+  <!-- Ad banner styles -->
+  <style>
+    .ad-banner{ text-align:center; margin:22px 0; min-height:50px; }
+    @media (min-width: 992px){ .ad-banner{ min-height:90px; } }
+  </style>
 
   <!-- TOP ad: responsive render -->
   <script>
@@ -277,7 +277,7 @@
     })();
   </script>
 
- <!-- BOTTOM ad: responsive render -->
+  <!-- BOTTOM ad: responsive render -->
   <script>
     (function(){
       var container = document.getElementById('adsterra-bottom');
@@ -380,7 +380,7 @@
       {name:'King',       fn:t=>`✧✦ ${t.toUpperCase().split('').join(' ')} ✦✧`},
       {name:'Devil',      fn:t=>`😈 ${t} 😈`},
       {name:'Cute Hearts',fn:t=>`💕 ${t} 💕 ♥︎ ♡`},
-      {name:'Gaming',     fn:t=>`🎮👑 ${t.replace(/\\s+/g,'_')} 👑🎮`},
+      {name:'Gaming',     fn:t=>`🎮👑 ${t.replace(/\s+/g,'_')} 👑🎮`},
       {name:'Aesthetic',  fn:t=>`⋆｡°✩ ${t} ✩°｡⋆`},
       {name:'Brackets',   fn:t=>`『 ${t} 』`},
       {name:'Stars Line', fn:t=>`★彡 ${t} 彡★`}
@@ -390,7 +390,7 @@
 
     function randomFrom(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
     function spaced(t){ return t.split('').join(' '); }
-    function snake(t){ return t.trim().replace(/\\s+/g,'_'); }
+    function snake(t){ return t.trim().replace(/\s+/g,'_'); }
 
     function randomDecorations(t){
       const set=randomFrom(EMOJI_SETS); const a=randomFrom(set), b=randomFrom(set);
@@ -448,10 +448,10 @@
     // Word Counter
     const wcIn=document.getElementById('wc-input'), wcClean=document.getElementById('wc-clean');
     function metricsFromText(raw){
-      const cleaned=(raw||'').replace(/\\s+/g,' ').trim();
-      const words=cleaned?cleaned.split(/\\s+/).length:0;
+      const cleaned=(raw||'').replace(/\s+/g,' ').trim();
+      const words=cleaned?cleaned.split(/\s+/).length:0;
       const chars=(raw||'').length;
-      const sentences=((raw||'').match(/[.!?]+\\s|\\n/g)||[]).length + ((raw||'').trim()?1:0);
+      const sentences=((raw||'').match(/[.!?]+\s|\n/g)||[]).length + ((raw||'').trim()?1:0);
       const readSec=Math.ceil(words/200*60);
       return {words,chars,sentences,readSec,cleaned};
     }
@@ -488,7 +488,7 @@
     // Quick sanity tests (console)
     (function tests(){
       const out=[]; const eq=(a,b,n)=>{out.push([n,a===b]); if(a!==b) console.error('❌',n,a,b);};
-      const demo=(()=>{const set=['✨','💕','🔥']; return `${set[0]} demo ${set[1]}`})(); eq(/[^\\w\\s]/.test(demo),'emoji exists');
+      const demo=(()=>{const set=['✨','💕','🔥']; return `${set[0]} demo ${set[1]}`})(); eq(/[^\w\s]/.test(demo),'emoji exists');
       eq(typeof copyText,'function','copy helper exists');
       console.table(out.map(([n,p])=>({test:n,pass:p})));
     })();
@@ -497,3 +497,4 @@
   </script>
 </body>
 </html>
+
