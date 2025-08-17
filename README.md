@@ -53,7 +53,8 @@ Netlify will deploy instantly 🚀
 ---
 
 ## 📸 Screenshots
-> Add screenshots of Fancy Text, Word Counter, and QR Code sections here.
+<img width="1493" height="904" alt="image" src="https://github.com/user-attachments/assets/b50b3b5f-cc07-4279-9c76-dad78c0bfb02" />
+
 
 ---
 
