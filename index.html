@@ -277,35 +277,38 @@
     })();
   </script>
 
-  <!-- BOTTOM ad: responsive render -->
-  <script>
-    (function(){
-      var container = document.getElementById('adsterra-bottom');
-      if (!container) return;
-      var isWide = window.matchMedia('(min-width: 992px)').matches;
-      var w = isWide ? 728 : 320;
-      var h = isWide ? 90  : 50;
+  <!-- BOTTOM ad: 468x60 with its own zone -->
+<script>
+  (function(){
+    var container = document.getElementById('adsterra-bottom');
+    if (!container) return;
 
-      var opts = document.createElement('script');
-      opts.type = 'text/javascript';
-      opts.text = `
-        atOptions = {
-          'key'    : 'e4d60c40ed73d22e400e4ddc70614df1',
-          'format' : 'iframe',
-          'height' : ${h},
-          'width'  : ${w},
-          'params' : {}
-        };
-      `;
-      container.appendChild(opts);
+    // Fixed size for this zone
+    var w = 468, h = 60;
 
-      var s = document.createElement('script');
-      s.type = 'text/javascript';
-      s.src  = 'https://www.highperformanceformat.com/e4d60c40ed73d22e400e4ddc70614df1/invoke.js';
-      s.referrerPolicy = 'no-referrer-when-downgrade';
-      container.appendChild(s);
-    })();
-  </script>
+    // Inject Adsterra options
+    var opts = document.createElement('script');
+    opts.type = 'text/javascript';
+    opts.text = `
+      atOptions = {
+        'key'    : '7fa7c9f07fdeec225780bcc093f551d1',
+        'format' : 'iframe',
+        'height' : ${h},
+        'width'  : ${w},
+        'params' : {}
+      };
+    `;
+    container.appendChild(opts);
+
+    // Invoke script for this specific zone
+    var s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.src  = 'https://www.highperformanceformat.com/7fa7c9f07fdeec225780bcc093f551d1/invoke.js';
+    s.referrerPolicy = 'no-referrer-when-downgrade';
+    container.appendChild(s);
+  })();
+</script>
+
 
   <!-- QR loader -->
   <script>
@@ -495,6 +498,8 @@
 
     refreshAll();
   </script>
+	 <!-- Adsterra Social Bar -->
+    <script type='text/javascript' src='//pl27445440.profitableratecpm.com/4a/93/38/4a9338840abd51fa9e902b99ccd85cd1.js'></script>
 </body>
 </html>
 
